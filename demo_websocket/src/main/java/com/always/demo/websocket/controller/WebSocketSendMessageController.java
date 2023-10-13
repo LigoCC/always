@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 
 @RestController
-public class SendMessageController {
+public class WebSocketSendMessageController {
     @GetMapping("index")
     public ResponseEntity<String> index() {
         return ResponseEntity.ok("请求成功");

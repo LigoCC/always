@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>demo</module>
+        <module>demo_websocket</module>
     </modules>
 
     <properties>
