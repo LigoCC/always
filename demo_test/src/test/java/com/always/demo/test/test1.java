@@ -5,8 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @SpringBootTest(classes = test1.class)
@@ -34,5 +37,30 @@ public class test1 {
         });
 
         System.out.println(str);    // [0, 5, 5, 123, 10086]
+    }
+
+    /*
+     * 统计一段时间每个小时的分钟数
+     */
+    @Test
+    public void test2() {
+        Calendar start = Calendar.getInstance();
+        start.set(2021, Calendar.JANUARY, 1, 0, 0, 0); // 设置开始时间，这里为2022年1月1日00:00:00
+        Calendar end = Calendar.getInstance();
+        end.set(2022, Calendar.JANUARY, 1, 1, 0, 0); // 设置结束时间，这里为2022年1月1日01:00:00
+        Map<Integer, Integer> map = new HashMap<>(); // 用于存储每个小时的分钟数
+        while (start.before(end)) {
+            int hour = start.get(Calendar.HOUR_OF_DAY); // 获取当前小时数
+            if (map.containsKey(hour)) {
+                map.put(hour, map.get(hour) + 1); // 如果已经存在该小时数，则将对应的分钟数加1
+            } else {
+                map.put(hour, 1); // 如果不存在该小时数，则将该小时数对应的分钟数设置为1
+            }
+            start.add(Calendar.MINUTE, 1); // 将时间加1分钟
+        }
+        // 输出结果
+        for (int hour : map.keySet()) {
+            System.out.println(hour + "时有" + map.get(hour) + "分钟");
+        }
     }
 }
