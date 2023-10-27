@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,5 +65,27 @@ public class test1 {
         for (int hour : map.keySet()) {
             System.out.println(hour + "时有" + map.get(hour) + "分钟");
         }
+    }
+
+    /*
+     * 两个Date之间的天数
+     */
+    @Test
+    public void test3() {
+        Date startTime = new Date(2023 - 1900, 10 - 1, 20, 0, 0, 0);
+        Date endTime = new Date(2023 - 1900, 10 - 1, 24, 23, 59, 59);
+        BigDecimal bigDecimal = BigDecimal.valueOf(endTime.getTime() - startTime.getTime());
+        BigDecimal divide = bigDecimal.divide(BigDecimal.valueOf(1000 * 24 * 60 * 60), 0, RoundingMode.HALF_UP);
+        System.out.println(divide);
+    }
+
+    @Test
+    public void test4() {
+        Map<Integer, Integer> map = new HashMap<>();
+        // map初始化
+        for (int i = 0; i <= 23; i++) {
+            map.put(i, 0);
+        }
+        System.out.println(map.get(23));
     }
 }
