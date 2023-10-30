@@ -50,9 +50,9 @@ public class test1 {
     public void test2() {
         long sm = System.currentTimeMillis();
         Calendar start = Calendar.getInstance();
-        start.set(2023, Calendar.JANUARY, 1, 0, 0, 0); // 设置开始时间，这里为2022年1月1日00:00:00
+        start.set(2023, Calendar.JANUARY, 1, 5, 42, 0); // 设置开始时间，这里为2022年1月1日00:00:00
         Calendar end = Calendar.getInstance();
-        end.set(2023, Calendar.DECEMBER, 31, 23, 59, 59); // 设置结束时间，这里为2022年1月1日01:00:00
+        end.set(2023, Calendar.JANUARY, 1, 5, 55, 59); // 设置结束时间，这里为2022年1月1日01:00:00
         Map<Integer, Integer> map = new HashMap<>(); // 用于存储每个小时的分钟数
         while (start.before(end)) {
             int hour = start.get(Calendar.HOUR_OF_DAY); // 获取当前小时数
@@ -77,34 +77,43 @@ public class test1 {
         // 统计每个小时的分钟数
         Map<Integer, Integer> hourMinuteCount = new HashMap<>();
         // 设置时间范围
-        LocalDateTime startTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
-        LocalDateTime endTime = LocalDateTime.of(2023, 12, 31, 23, 59, 59);
-        // 掐头
-        int startTimeHour = startTime.getHour();
-        int startTimeMinute = startTime.getMinute();
-        int startTimeSecond = startTime.getSecond();
-        if (startTimeSecond > 30) {
-            startTimeMinute += 1;
-        }
-        hourMinuteCount.put(startTimeHour, 60 - startTimeMinute);
-        startTime = startTime.plusHours(1);
-        startTime = startTime.withMinute(0);
-        startTime = startTime.withSecond(0);
-        // 去尾
-        int endTimeHour = endTime.getHour();
-        int endTimeMinute = endTime.getMinute();
-        int endTimeSecond = endTime.getSecond();
-        if (endTimeSecond > 30) {
-            endTimeMinute += 1;
-        }
-        hourMinuteCount.put(endTimeHour, hourMinuteCount.get(endTimeHour) == null ? endTimeMinute : hourMinuteCount.get(endTimeHour) + endTimeMinute);
-        endTime = endTime.plusHours(-1);
-        endTime = endTime.withMinute(0);
-        endTime = endTime.withSecond(0);
-        // 循环中间
-        for (LocalDateTime dateTime = startTime; !dateTime.isAfter(endTime); dateTime = dateTime.plusHours(1)) {
-            int hour = dateTime.getHour();
-            hourMinuteCount.put(hour, hourMinuteCount.get(hour) == null ? 60 : hourMinuteCount.get(hour) + 60);
+        LocalDateTime startTime = LocalDateTime.of(2023, 1, 1, 10, 0, 0);
+        LocalDateTime endTime = LocalDateTime.of(2023, 1, 1, 10, 20, 30);
+
+        if ((startTime.getYear() == endTime.getYear()
+                && startTime.getMonthValue() == endTime.getMonthValue()
+                && startTime.getDayOfMonth() == endTime.getDayOfMonth()
+                && startTime.getHour() == endTime.getHour())
+        ) {
+            hourMinuteCount.put(startTime.getHour(), ((endTime.getSecond() > 30 ? 1 : 0) + endTime.getMinute()) - ((startTime.getSecond() > 30 ? 1 : 0) + startTime.getMinute()));
+        } else {
+            // 掐头
+            int startTimeHour = startTime.getHour();
+            int startTimeMinute = startTime.getMinute();
+            int startTimeSecond = startTime.getSecond();
+            if (startTimeSecond > 30) {
+                startTimeMinute += 1;
+            }
+            hourMinuteCount.put(startTimeHour, 60 - startTimeMinute);
+            startTime = startTime.plusHours(1);
+            startTime = startTime.withMinute(0);
+            startTime = startTime.withSecond(0);
+            // 去尾
+            int endTimeHour = endTime.getHour();
+            int endTimeMinute = endTime.getMinute();
+            int endTimeSecond = endTime.getSecond();
+            if (endTimeSecond > 30) {
+                endTimeMinute += 1;
+            }
+            hourMinuteCount.put(endTimeHour, hourMinuteCount.get(endTimeHour) == null ? endTimeMinute : hourMinuteCount.get(endTimeHour) + endTimeMinute);
+            endTime = endTime.plusHours(-1);
+            endTime = endTime.withMinute(0);
+            endTime = endTime.withSecond(0);
+            // 循环中间
+            for (LocalDateTime dateTime = startTime; !dateTime.isAfter(endTime); dateTime = dateTime.plusHours(1)) {
+                int hour = dateTime.getHour();
+                hourMinuteCount.put(hour, hourMinuteCount.get(hour) == null ? 60 : hourMinuteCount.get(hour) + 60);
+            }
         }
 
         long em = System.currentTimeMillis();
