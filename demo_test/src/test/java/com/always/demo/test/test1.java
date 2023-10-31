@@ -233,4 +233,87 @@ public class test1 {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
+
+    @Test
+    public void test10() {
+        String str1 = "dec";
+        String str2 = "fab";
+
+        StringBuffer bff = new StringBuffer();
+        bff.append(str1);
+        bff.append(str2);
+
+        System.out.println(bff);    // decfab
+
+        List<Character> list1 = new ArrayList<>();
+        List<Character> list2 = new ArrayList<>();
+
+        for (int i = 0; i < bff.length(); i++) {
+            char charAt = bff.charAt(i);
+            if (i % 2 == 0) {
+                list1.add(charAt);
+            } else {
+                list2.add(charAt);
+            }
+        }
+
+        System.out.println(list1);
+        System.out.println(list2);
+
+        list1.sort(new Comparator<Character>() {
+            public int compare(Character c1, Character c2) {
+                return c1 - c2;
+            }
+        });
+        list2.sort(new Comparator<Character>() {
+            public int compare(Character c1, Character c2) {
+                return c1 - c2;
+            }
+        });
+
+        System.out.println(list1);
+        System.out.println(list2);
+
+        StringBuffer bff2 = new StringBuffer();
+        for (int i = 0; i < Math.max(list1.size(), list2.size()); i++) {
+            if (list1.size() >= i) {
+                bff2.append(list1.get(i));
+            }
+            if (list2.size() >= i) {
+                bff2.append(list2.get(i));
+            }
+        }
+        System.out.println(bff2);   // abcedf
+
+        StringBuffer bff3 = new StringBuffer();
+        for (int i = 0; i < bff2.length(); i++) {
+            String str = bff2.substring(i);
+            if (str.matches("[0-9a-fA-F]")) {
+                // 16进制转10进制
+                int anInt = Integer.parseInt(str, 16);
+                // 10进制转2进制
+                String binaryString = Integer.toBinaryString(anInt);
+            }
+        }
+
+    }
+
+    @Test
+    public void test11() {
+        String binaryString = Integer.toBinaryString(3);
+        System.out.println(binaryString);
+    }
+
+    @Test
+    public void test12() {
+        Date date = new Date();
+        long time = date.getTime();
+
+        System.out.println(date);
+        System.out.println(time);
+
+        long l = date.getTime() - 10000L;
+        Date date1 = new Date(l);
+        System.out.println(date1);  //
+    }
 }
