@@ -9,11 +9,13 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Slf4j
 @SpringBootTest(classes = test1.class)
@@ -145,5 +147,90 @@ public class test1 {
             map.put(i, 0);
         }
         System.out.println(map.get(23));
+    }
+
+    @Test
+    public void test5() {
+        int i = (int) '1';
+        System.out.println(i);
+    }
+
+    @Test
+    public void test6() {
+        Map<String, String> testMap = new HashMap<>();
+
+        testMap.put("bbb", "9");
+        testMap.put("ccc", "10");
+        testMap.put("dddd", "11");
+        testMap.put("aaa", "10");
+
+        for (Map.Entry<String, String> stringStringEntry : testMap.entrySet()) {
+            System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue());    // aaa 10 ccc 10 bbb 9 dddd 11
+        }
+    }
+
+    @Test
+    public void test7() {
+        Map<String, String> testMap = new TreeMap<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+
+        testMap.put("bbb", "9");
+        testMap.put("ccc", "10");
+        testMap.put("dddd", "11");
+        testMap.put("aaa", "10");
+
+        for (Map.Entry<String, String> stringStringEntry : testMap.entrySet()) {
+            System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue());    // dddd 11 ccc 10 bbb 9 aaa 10
+        }
+    }
+
+    @Test
+    public void test8() {
+        Map<String, String> testMap = new HashMap<>();
+
+        testMap.put("bbb", "9");
+        testMap.put("ccc", "10");
+        testMap.put("dddd", "11");
+        testMap.put("aaa", "10");
+
+        // Set<Map.Entry<String, String>> entries = testMap.entrySet();
+        List<Map.Entry<String, String>> list = new ArrayList<>(testMap.entrySet());
+        list.sort(new Comparator<Map.Entry<String, String>>() {
+            @Override
+            public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
+                return Integer.valueOf(o2.getValue()).compareTo(Integer.valueOf(o1.getValue()));
+            }
+        });
+
+        for (Map.Entry<String, String> stringStringEntry : list) {
+            System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue());
+        }
+    }
+
+    @Test
+    public void test9() {
+        Map<String, String> testMap = new HashMap<>();
+
+        testMap.put("bbb", "9");
+        testMap.put("ccc", "10");
+        testMap.put("dddd", "11");
+        testMap.put("aaa", "10");
+
+        // Set<Map.Entry<String, String>> entries = testMap.entrySet();
+        List<Map.Entry<String, String>> list = new ArrayList<>(testMap.entrySet());
+
+        Collections.sort(list, new Comparator<Map.Entry<String, String>>() {
+            public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
+                return Integer.valueOf(o2.getValue()).compareTo(Integer.valueOf(o1.getValue()));
+            }
+        });
+
+        for (Map.Entry<String, String> entry : list) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
     }
 }
