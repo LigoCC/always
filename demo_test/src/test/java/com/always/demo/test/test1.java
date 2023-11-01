@@ -287,15 +287,21 @@ public class test1 {
 
         StringBuffer bff3 = new StringBuffer();
         for (int i = 0; i < bff2.length(); i++) {
-            String str = bff2.substring(i);
+            String str = String.valueOf(bff2.charAt(i));
             if (str.matches("[0-9a-fA-F]")) {
                 // 16进制转10进制
                 int anInt = Integer.parseInt(str, 16);
                 // 10进制转2进制
                 String binaryString = Integer.toBinaryString(anInt);
+                StringBuffer reverse = new StringBuffer(binaryString).reverse();
+                while (reverse.length() < 4) {
+                    reverse.append(0);
+                }
+                String hexString = Integer.toHexString(Integer.parseInt(reverse.toString(), 2)).toUpperCase();
+                bff3.append(hexString);
             }
         }
-
+        System.out.println(bff3);
     }
 
     @Test
@@ -315,5 +321,13 @@ public class test1 {
         long l = date.getTime() - 10000L;
         Date date1 = new Date(l);
         System.out.println(date1);  //
+    }
+
+    @Test
+    public void test13() {
+        List<String> lotsns = new ArrayList<>();
+        lotsns.add("123");
+        lotsns.add("456");
+        System.out.println(lotsns.toString().replaceAll("\\[","").replaceAll("]",""));
     }
 }
