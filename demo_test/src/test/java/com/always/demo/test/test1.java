@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Slf4j
 @SpringBootTest(classes = test1.class)
@@ -329,5 +330,70 @@ public class test1 {
         lotsns.add("123");
         lotsns.add("456");
         System.out.println(lotsns.toString().replaceAll("\\[","").replaceAll("]",""));
+    }
+
+    @Test
+    public void test14() {
+        String line = "Eqr v9oEb12U2ur4xu7rd931G1f50qDo";
+        line = line.replace(" ", "");
+        List<Character> c1 = new ArrayList<>();
+        List<Character> c2 = new ArrayList<>();
+        for (int i = 0; i < line.length(); i++) {
+            if (i % 2 == 0) {
+                c1.add(line.charAt(i));
+            } else {
+                c2.add(line.charAt(i));
+            }
+        }
+        c1.sort(new Comparator<Character>() {
+            public int compare(Character char1, Character char2) {
+                return char1 - char2;
+            }
+        });
+        c2.sort(new Comparator<Character>() {
+            public int compare(Character char1, Character char2) {
+                return char1 - char2;
+            }
+        });
+        int max = Math.max(c1.size(), c2.size());
+        StringBuffer bff = new StringBuffer();
+        for (int j = 0; j <= max; j++) {
+            if (c1.size() > j) {
+                bff.append(c1.get(j));
+            }
+            if (c2.size() > j) {
+                bff.append(c2.get(j));
+            }
+        }
+
+        System.out.println(bff);
+
+        StringBuffer result = new StringBuffer();
+        for (int k = 0; k < bff.length(); k++) {
+            String charAt = String.valueOf(bff.charAt(k));
+            if (charAt.matches("[0-9a-fA-F]")) {
+                // 十六转十
+                int x = Integer.parseInt(charAt, 16);
+                // 十转二
+                String er = Integer.toBinaryString(x);
+                // 翻转
+                StringBuffer erbff = new StringBuffer(er).reverse();
+                // 补位
+                while (erbff.length() < 4) {
+                    erbff.append("0");
+                }
+                // 二转十；十转十六
+                String shiliu = Integer.toHexString(Integer.parseInt(erbff.toString(),
+                        2)).toUpperCase();
+                result.append(shiliu);
+            }
+        }
+        System.out.print(result);
+    }
+
+    @Test
+    public void test15() {
+        List<String> list = new ArrayList<>();
+        list.stream().collect(Collectors.toList());
     }
 }
