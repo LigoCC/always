@@ -23,4 +23,18 @@ public class SpringAmqpTest {
         // 发送消息
         rabbitTemplate.convertAndSend(queueName, message);
     }
+
+    @Test
+    public void testSendTopicQueue() {
+        // 交换机名称
+        String exchangeName = "JKCGY.TEST";
+        // obd消息
+        String obdMessage = "OBD已插入";
+        // 发送obd消息
+        rabbitTemplate.convertAndSend(exchangeName, "car.device.obd", obdMessage);
+        // adas消息
+        String adasMessage = "ADAS已插入";
+        // 发送obd消息
+        rabbitTemplate.convertAndSend(exchangeName, "car.device.adas", adasMessage);
+    }
 }
