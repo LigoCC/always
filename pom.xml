@@ -12,6 +12,7 @@
     <modules>
         <module>demo_websocket</module>
         <module>demo_test</module>
+        <module>demo_rabbitmq</module>
     </modules>
 
     <properties>

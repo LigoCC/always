@@ -1,0 +1,10 @@
+server:
+  port: 2024
+
+spring:
+  rabbitmq:
+    host: 139.9.244.76 # 主机名
+    port: 5672 # 端口
+    virtual-host: / # 虚拟主机
+    username: jkcgy # 用户名
+    password: a666666 # 密码
