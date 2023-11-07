@@ -441,4 +441,25 @@ public class test1 {
         boolean empty = map.isEmpty();
         System.out.println(empty);  // true
     }
+
+    @Test
+    public void test19() {
+        List<String> list = new ArrayList<>();
+        list.add("123");
+        list.add("456");
+        list.add("123");
+        list.add("456");
+        list.add("123");
+        list.add("123");
+
+        list.remove("123");
+        System.out.println(list);   // [456, 123, 456, 123, 123];删除第一个该元素
+
+        List<String> removeList = new ArrayList<>();
+        removeList.add("123");
+        removeList.add("456");
+
+        list.removeAll(removeList);
+        System.out.println(list);   // [];删除所有匹配到的元素
+    }
 }
