@@ -398,16 +398,16 @@ public class test1 {
     public void test16() {
         List<String> list = new ArrayList<>();
 
-        System.out.println(list.size());  // 0
+        System.out.println(list.size());    // 0
 
         list.add("123");
         list.add("456");
         list.add("789");
         list.add("000");
 
-        System.out.println(list.size());   // 4
+        System.out.println(list.size());    // 4
 
-        System.out.println(list.get(3));  // 000
+        System.out.println(list.get(3));    // 000
 
         System.out.println(list.subList(0, 3)); // [123, 456, 789];list.subList(x,y),包含x，不包含y,即[x,y)
     }
@@ -420,9 +420,9 @@ public class test1 {
         System.out.println(length); // 10
 
         char c1 = str.charAt(0);
-        System.out.println(c1);  // 0
+        System.out.println(c1); // 0
         char c2 = str.charAt(9);
-        System.out.println(c2);  // 9
+        System.out.println(c2); // 9
 
         String substring = str.substring(0, 2);
         System.out.println(substring);  // 01;  string.substring(x,y),包含x，不包含y,即[x,y)
@@ -457,6 +457,6 @@ public class test1 {
         removeList.add("123");
         removeList.add("456");
 
-        System.out.println(list.removeAll(removeList));   // [];删除所有匹配到的元素
+        System.out.println(list.removeAll(removeList)); // [];删除所有匹配到的元素
     }
 }
