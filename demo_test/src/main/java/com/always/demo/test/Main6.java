@@ -21,9 +21,10 @@ public class Main6 {
                 for (int i = 0; i < count; i++) {
                     list.add(Integer.valueOf(line2Split[i]));
                 }
+
                 for (int startIndex = 0; startIndex < count - yuNum; startIndex++) {    // 子数组startIndex
                     for (int endIndex = startIndex + yuNum; endIndex < count; endIndex++) { // 子数组endIndex
-
+//                        list.subList()
                     }
                 }
             }

@@ -329,7 +329,7 @@ public class test1 {
         List<String> lotsns = new ArrayList<>();
         lotsns.add("123");
         lotsns.add("456");
-        System.out.println(lotsns.toString().replaceAll("\\[","").replaceAll("]",""));
+        System.out.println(lotsns.toString().replaceAll("\\[", "").replaceAll("]", ""));
     }
 
     @Test
@@ -395,5 +395,50 @@ public class test1 {
     public void test15() {
         List<String> list = new ArrayList<>();
         list.stream().collect(Collectors.toList());
+    }
+
+    @Test
+    public void test16() {
+        List<String> list = new ArrayList<>();
+
+        int size1 = list.size();
+        System.out.println(size1);  // 0
+
+        list.add("123");
+        list.add("456");
+        list.add("789");
+        list.add("000");
+
+        int size = list.size();
+        System.out.println(size);   // 4
+
+        String s = list.get(3);
+        System.out.println(s);  // 000
+
+        List<String> list1 = list.subList(0, 3);    // [123, 456, 789];list.subList(x,y),包含x，不包含y,即[x,y)
+        System.out.println(list1);
+    }
+
+    @Test
+    public void test17() {
+        String str = "0123456789";
+        char c = str.charAt(9);
+        System.out.println(c);  // 9
+        int length = str.length();
+        System.out.println(length); // 10
+        String substring = str.substring(0, 2);
+        System.out.println(substring);  // 01;string.substring(x,y),包含x，不包含y,即[x,y)
+        String substring2 = str.substring(0, 10);
+        System.out.println(substring2);
+
+        CharSequence charSequence = str.subSequence(1, 8);
+        System.out.println(charSequence);
+    }
+
+    @Test
+    public void test18() {
+        Map<String, String> map = new HashMap<>();
+        boolean empty = map.isEmpty();
+        System.out.println(empty);  // true
     }
 }
