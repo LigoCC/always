@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 @Slf4j
 @SpringBootTest(classes = test1.class)
@@ -393,53 +392,52 @@ public class test1 {
 
     @Test
     public void test15() {
-        List<String> list = new ArrayList<>();
-        list.stream().collect(Collectors.toList());
     }
 
     @Test
     public void test16() {
         List<String> list = new ArrayList<>();
 
-        int size1 = list.size();
-        System.out.println(size1);  // 0
+        System.out.println(list.size());  // 0
 
         list.add("123");
         list.add("456");
         list.add("789");
         list.add("000");
 
-        int size = list.size();
-        System.out.println(size);   // 4
+        System.out.println(list.size());   // 4
 
-        String s = list.get(3);
-        System.out.println(s);  // 000
+        System.out.println(list.get(3));  // 000
 
-        List<String> list1 = list.subList(0, 3);    // [123, 456, 789];list.subList(x,y),包含x，不包含y,即[x,y)
-        System.out.println(list1);
+        System.out.println(list.subList(0, 3)); // [123, 456, 789];list.subList(x,y),包含x，不包含y,即[x,y)
     }
 
     @Test
     public void test17() {
         String str = "0123456789";
-        char c = str.charAt(9);
-        System.out.println(c);  // 9
+
         int length = str.length();
         System.out.println(length); // 10
+
+        char c1 = str.charAt(0);
+        System.out.println(c1);  // 0
+        char c2 = str.charAt(9);
+        System.out.println(c2);  // 9
+
         String substring = str.substring(0, 2);
-        System.out.println(substring);  // 01;string.substring(x,y),包含x，不包含y,即[x,y)
+        System.out.println(substring);  // 01;  string.substring(x,y),包含x，不包含y,即[x,y)
+
         String substring2 = str.substring(0, 10);
-        System.out.println(substring2);
+        System.out.println(substring2); // 0123456789
 
         CharSequence charSequence = str.subSequence(1, 8);
-        System.out.println(charSequence);
+        System.out.println(charSequence);   // 1234567
     }
 
     @Test
     public void test18() {
         Map<String, String> map = new HashMap<>();
-        boolean empty = map.isEmpty();
-        System.out.println(empty);  // true
+        System.out.println(map.isEmpty());  // true
     }
 
     @Test
@@ -459,7 +457,6 @@ public class test1 {
         removeList.add("123");
         removeList.add("456");
 
-        list.removeAll(removeList);
-        System.out.println(list);   // [];删除所有匹配到的元素
+        System.out.println(list.removeAll(removeList));   // [];删除所有匹配到的元素
     }
 }
