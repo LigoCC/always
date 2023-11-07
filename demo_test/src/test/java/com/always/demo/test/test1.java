@@ -48,7 +48,7 @@ public class test1 {
         System.out.println(intA);   // 97
 
         int i = 65;
-        char charI = (char)i;
+        char charI = (char) i;
         System.out.println(charI);  // A
     }
 
@@ -351,5 +351,120 @@ public class test1 {
         removeList.add("456");
 
         System.out.println(list.removeAll(removeList)); // [];删除所有匹配到的元素
+    }
+
+    /**
+     * 1.在Java中，方法参数是按值传递的，这意味着当一个方法被调用时，
+     * 它接收的是参数的副本而不是原始参数本身。因此，默认情况下，
+     * 被调用的方法无法修改调用方法的入参。
+     * 然而，如果参数是对象类型，那么方法可以修改对象的状态，
+     * 因为对象的引用是通过值传递的。这意味着方法可以修改对象的属性，
+     * 但不能改变对象的引用。
+     * <p>
+     * 2.在下面的示例中， modifyValue 方法接收一个 MyClass 对象的引用，
+     * 并将其值修改为20。这样，当调用 modifyValue 方法后，原始对象的属性值也会被修改。
+     * <p>
+     * 3.需要注意的是，基本数据类型（如int、float等）是按值传递的，因此无法通过方法修改它们的值。
+     * 只有通过将它们包装在对象中（如使用Integer、Float等包装类），才能实现通过方法修改的效果。
+     */
+    @Test
+    public void test20() {
+        MyClass obj = new MyClass();
+        System.out.println("Before modification: " + obj.getValue());   // Before modification: 0
+        modifyValue(obj);
+        System.out.println("After modification: " + obj.getValue());    // After modification: 20
+    }
+
+    public static void modifyValue(MyClass obj) {
+        obj.setValue(20);
+    }
+
+    class MyClass {
+        private int value;
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+    }
+
+    /**
+     * 1.Java中的方法可以修改调用方法的Map类型入参。这是因为Map类型是对象类型，
+     * 方法通过值传递的是Map对象的引用，而不是Map对象本身。因此，方法可以修改Map对象的内容。
+     * <p>
+     * 2.在下面的示例中， modifyMap 方法接收一个 Map<String, Integer> 类型的参数，
+     * 并将其修改为 {a=10, b=20} 。这样，当调用 modifyMap 方法后，原始Map对象的内容也会被修改。
+     */
+    @Test
+    public void test21() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("a", 1);
+        map.put("b", 2);
+        System.out.println("Before modification: " + map);  // Before modification: {a=1, b=2}
+        modifyMap(map);
+        System.out.println("After modification: " + map);   // After modification: {a=10, b=20}
+    }
+
+    public static void modifyMap(Map<String, Integer> map) {
+        map.put("a", 10);
+        map.put("b", 20);
+    }
+
+    /**
+     * 在Java中，参数传递分为值传递和引用传递。
+     * <p>
+     * (1).值传递：对于基本数据类型（如int、float、boolean等），方法传递的是实际值的副本。
+     * 在方法内部对参数进行修改不会影响原始值。
+     * <p>
+     * 在下面的示例中， modifyValue 方法接收一个int类型的参数，
+     * 并将其修改为20。然而，原始的 num 值并没有被修改，因为方法只是修改了参数的副本。
+     * <p>
+     * (2).引用传递：对于对象类型，方法传递的是对象的引用的副本。在方法内部对参数进行修改会影响原始对象的状态。
+     * <p>
+     * 在下面的示例中， modifyMap 方法接收一个 Map<String, Integer> 类型的参数，
+     * 并修改了其中的键值对。由于方法传递的是Map对象的引用的副本，所以对参数进行的修改会影响原始的Map对象。
+     * <p>
+     * 需要注意的是，虽然引用传递可以修改对象的状态，但无法修改对象的引用本身。如果在方法内部对引用进行重新赋值，不会影响原始引用。
+     */
+    @Test
+    public void test22() {
+        // 值传递
+        int num = 10;
+        System.out.println("Before modification: " + num);  // Before modification: 10
+        modifyValue(num);
+        System.out.println("After modification: " + num);   // After modification: 10
+
+        // 引用传递
+        Map<String, Integer> map = new HashMap<>();
+        map.put("a", 1);
+        map.put("b", 2);
+        System.out.println("Before modification: " + map);  // Before modification: {a=1, b=2}
+        modifyMap(map);
+        System.out.println("After modification: " + map);   // After modification: {a=10, b=20}
+    }
+
+    public static void modifyValue(int value) {
+        value = 20;
+    }
+
+    @Test
+    public void test23() {
+        int[] arr = new int[10];
+        arr[0] = 1;
+        arr[1] = 1;
+
+        modifyArray(arr);
+        System.out.println(arr[0]); // 0
+        System.out.println(arr[1]); // 0
+        System.out.println(arr[2]); // 2
+    }
+
+    public static void modifyArray(int[] arr) {
+        arr[0] = 0;
+        arr[1] = 0;
+        arr[2] = 2;
     }
 }
