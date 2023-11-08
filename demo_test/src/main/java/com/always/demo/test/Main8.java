@@ -1,10 +1,8 @@
 package com.always.demo.test;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main8 {
     public static void main(String[] args) {
@@ -28,53 +26,65 @@ public class Main8 {
             tmp.add(node);
             list.add(tmp);
 
-            List<List<Node>> result = extracted(m, n, arr, list);
+            List<Node> result = extracted(m, n, arr, list);
 
-            for (List<Node> nodes : result) {
-                for (Node oneNode : nodes) {
-                    System.out.println("(" + oneNode.getX() + "," + oneNode.getY() + ")");
-                }
+            for (Node oneNode : result) {
+                System.out.println("(" + oneNode.getX() + "," + oneNode.getY() + ")");
             }
         }
     }
 
-    private static List<List<Node>> extracted(int m, int n, int[][] arr, List<List<Node>> list) {
-        if (null == list || list.size() == 0) {
-            return list;
-        }
+    private static List<Node> extracted(int m, int n, int[][] arr, List<List<Node>> list) {
 
-        List<Node> nodes = list.stream().map(t -> t.get(t.size() - 1)).distinct().collect(Collectors.toList());
-        if (nodes.size() == 1 && nodes.get(0).getX() == (m - 1) && nodes.get(0).getY() == (n - 1)) {
-            return list;
-        }
+        List<List<Node>> tmp = new ArrayList<>();
 
-        List<List<Node>> tmp = new LinkedList<>();
-
-        for (List<Node> lineList : list) {
+        for (List<Node> lineList : list) {  // 每一个List<Node>是一条链路
             Node xy = lineList.get(lineList.size() - 1);    // 最后一个
 
             Integer x = xy.getX();  // 行
             Integer y = xy.getY();  // 列
 
             if (x == (m - 1) && y == (n - 1)) {
-                List<Node> listNew = new ArrayList<>(lineList);
-                tmp.add(listNew);
+                return lineList;
             } else {
                 if (x + 1 < m) {
                     if (arr[x + 1][y] == 0) {
-                        List<Node> listNew = new ArrayList<>(lineList);
-
                         Node newNode = new Node(x + 1, y);
-                        listNew.add(newNode);
-                        tmp.add(listNew);
+                        if (!lineList.contains(newNode)) {
+                            List<Node> listNew = new ArrayList<>(lineList);
+                            listNew.add(newNode);
+                            tmp.add(listNew);
+                        }
+                    }
+                }
+                if (x - 1 >= 0) {
+                    if (arr[x - 1][y] == 0) {
+                        Node newNode = new Node(x - 1, y);
+                        if (!lineList.contains(newNode)) {
+                            List<Node> listNew = new ArrayList<>(lineList);
+                            listNew.add(newNode);
+                            tmp.add(listNew);
+                        }
                     }
                 }
                 if (y + 1 < n) {
                     if (arr[x][y + 1] == 0) {
-                        List<Node> listNew = new ArrayList<>(lineList);
                         Node newNode = new Node(x, y + 1);
-                        listNew.add(newNode);
-                        tmp.add(listNew);
+                        if (!lineList.contains(newNode)) {
+                            List<Node> listNew = new ArrayList<>(lineList);
+                            listNew.add(newNode);
+                            tmp.add(listNew);
+                        }
+                    }
+                }
+                if (y - 1 >= 0) {
+                    if (arr[x][y - 1] == 0) {
+                        Node newNode = new Node(x, y - 1);
+                        if (!lineList.contains(newNode)) {
+                            List<Node> listNew = new ArrayList<>(lineList);
+                            listNew.add(newNode);
+                            tmp.add(listNew);
+                        }
                     }
                 }
             }
@@ -100,5 +110,4 @@ public class Main8 {
             return this.y;
         }
     }
-
 }
