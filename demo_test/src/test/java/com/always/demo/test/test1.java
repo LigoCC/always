@@ -476,6 +476,12 @@ public class test1 {
         Node node = new Node(1,2);
     }
 
+    @Test
+    public void test24_2() {
+        Node[] nodes = new Node[10];
+        System.out.println(nodes.length);
+    }
+
     class Node {
 
         int x, y;
