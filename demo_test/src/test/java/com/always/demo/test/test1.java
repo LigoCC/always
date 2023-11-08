@@ -467,4 +467,51 @@ public class test1 {
         arr[1] = 0;
         arr[2] = 2;
     }
+
+    /**
+     * 内部类
+     */
+    @Test
+    public void test24() {
+        Node node = new Node(1,2);
+    }
+
+    class Node {
+
+        int x, y;
+
+        public Node(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX() {
+            return this.x;
+        }
+
+        public int getY() {
+            return this.y;
+        }
+    }
+
+    @Test
+    public void test25() {
+        List<String> str = new ArrayList<>();
+        str.add("123");
+        str.add("456");
+        str.add("789");
+
+        List<String> newStr = str;
+        newStr.add("555");
+
+        System.out.println(str);    // [123, 456, 789, 555]
+        System.out.println(newStr); // [123, 456, 789, 555]
+
+        List<String> newStr2 = new ArrayList<>(str);
+        newStr2.add("666");
+
+        System.out.println(str);    // [123, 456, 789, 555]
+        System.out.println(newStr); // [123, 456, 789, 555]
+        System.out.println(newStr2);    // [123, 456, 789, 555, 666]
+    }
 }
