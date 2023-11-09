@@ -23,57 +23,68 @@ public class Main8 {
                 }
             }
 
-            List<Node> list = new ArrayList<>();    // 存所有路径
-            Node first = new Node(0, 0, null);
+            List<Node[]> list = new ArrayList<>();    // 存所有路径
+            Node[] firstArr = new Node[m * n];
+            firstArr[0] = new Node(0, 0);
             ars[0][0] = 1;
-            list.add(first);
+            list.add(firstArr);
 
+            int index = 0;
             boolean key = true;
+            Node[] result = null;
             while (key) {
-                List<Node> tmp = new ArrayList<>();
-                for (Node node : list) {
-                    int x = node.getX();
-                    int y = node.getY();
+                List<Node[]> tmp = new ArrayList<>();
+                for (Node[] node : list) {
+                    int x = node[index].getX();
+                    int y = node[index].getY();
 
                     if (x == (m - 1) && y == (n - 1)) {
                         key = false;
+                        result = node;
                         break;
                     }
 
                     if (x + 1 < m) {
                         if (arr[x + 1][y] == 0 && ars[x + 1][y] == 0) {
-                            Node newNode = new Node(x + 1, y, node);
+                            Node[] clone = node.clone();
+                            clone[index + 1] = new Node(x + 1, y);
                             ars[x + 1][y] = 1;
-                            tmp.add(newNode);
+                            tmp.add(clone);
                         }
                     }
                     if (x - 1 >= 0) {
                         if (arr[x - 1][y] == 0 && ars[x - 1][y] == 0) {
-                            Node newNode = new Node(x - 1, y, node);
+                            Node[] clone = node.clone();
+                            clone[index + 1] = new Node(x - 1, y);
                             ars[x - 1][y] = 1;
-                            tmp.add(newNode);
+                            tmp.add(clone);
                         }
                     }
                     if (y + 1 < n) {
                         if (arr[x][y + 1] == 0 && ars[x][y + 1] == 0) {
-                            Node newNode = new Node(x, y + 1, node);
+                            Node[] clone = node.clone();
+                            clone[index + 1] = new Node(x, y + 1);
                             ars[x][y + 1] = 1;
-                            tmp.add(newNode);
+                            tmp.add(clone);
                         }
                     }
                     if (y - 1 >= 0) {
                         if (arr[x][y - 1] == 0 && ars[x][y - 1] == 0) {
-                            Node newNode = new Node(x, y - 1, node);
+                            Node[] clone = node.clone();
+                            clone[index + 1] = new Node(x, y - 1);
                             ars[x][y - 1] = 1;
-                            tmp.add(newNode);
+                            tmp.add(clone);
                         }
                     }
                 }
+                index++;
                 list = tmp;
             }
 
-            for (Node node : list) {
-                System.out.println(node.getX() + " " + node.getY());
+            if (null != result) {
+                for (int i = 0; i < index; i++) {
+                    System.out.println("(" + result[i].getX() + "," + result[i].getY() + ")");
+                }
             }
         }
     }
@@ -81,12 +92,10 @@ public class Main8 {
     static class Node {
         int x;
         int y;
-        Node father;
 
-        public Node(int x, int y, Node father) {
+        public Node(int x, int y) {
             this.x = x;
             this.y = y;
-            this.father = father;
         }
 
         public int getX() {
@@ -95,10 +104,6 @@ public class Main8 {
 
         public int getY() {
             return this.y;
-        }
-
-        public Node getFather() {
-            return this.father;
         }
     }
 }
