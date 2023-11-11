@@ -520,4 +520,39 @@ public class test1 {
         System.out.println(newStr); // [123, 456, 789, 555]
         System.out.println(newStr2);    // [123, 456, 789, 555, 666]
     }
+
+    @Test
+    public void test26() {
+        // key -> 预警类型; value -> 预警数量
+        Num num = new Num();
+        num.setNum(1);
+        Map<Integer, Num> typeCount = new HashMap();
+        typeCount.put(1, num);
+
+        Num one = typeCount.get(1);
+        one.setNum(one.getNum() + 1);
+
+        System.out.println(typeCount.get(1).getNum());
+    }
+
+    class Num{
+        int num;
+
+        public int getNum() {
+            return num;
+        }
+
+        public void setNum(int num) {
+            this.num = num;
+        }
+    }
+
+    @Test
+    public void test26_2() {
+        Map<Integer, Integer> typeCount = new HashMap();
+        typeCount.put(555, 1);
+        System.out.println(typeCount.get(555));
+        typeCount.put(555, typeCount.containsKey(555) ? typeCount.get(555) + 1 : 1);
+        System.out.println(typeCount.get(555));
+    }
 }
