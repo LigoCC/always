@@ -1,5 +1,10 @@
 package com.always.demo.test;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -13,23 +18,71 @@ import java.util.Scanner;
  * <p>
  * 示例 1:
  * 输入：
- * [[13,12],[4,3],[6,7],[2,3],[23,21]] .
+ * [[13,12],[4,3],[6,7],[2,3],[23,21]]
  * 输出：
  * 4
  */
 public class Main13 {
+    static int num; // 书本总数
+    static int max = 1; // 最大堆叠数
+    static List<Book> list = new ArrayList<>(); // 书籍信息
+    static Map<Integer, Integer> map = new HashMap<>();  // 记录 key:书位置 value:该书之下最大可堆叠数
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         while (in.hasNextInt()) {
-            int num = in.nextInt();
-            int[][] arr = new int[num][2];
-            // 数组存入
+            num = in.nextInt();
+            // 存入信息
             for (int i = 0; i < num; i++) {
-                arr[i][0] = in.nextInt();
-                arr[i][1] = in.nextInt();
+                list.add(new Book(in.nextInt(), in.nextInt()));
             }
+            // 先长度方向排序
+            list.sort(Comparator.comparingInt(Book::getLength));
+            // 宽度方向组合，找到最大值(采用字典记录的倒排方式，正向暴力排序重复计算多、内存开销过大)
+            map.put(num - 1, 1);
+            for (int j = num - 1; j >= 0; j--) {
+                dfs(j);
+            }
+            System.out.println(max);
+        }
+    }
 
+    static void dfs(int index) {
+        Book book = list.get(index);    // 该书本信息
+        int thisBookMax = 1;
+        for (int i = index + 1; i < num; i++) {
+            Book bookI = list.get(i);
+            if (book.getWidth() < bookI.getWidth()) {
+                int thisNum = map.get(i) + 1;
+                if (thisNum > thisBookMax) {
+                    thisBookMax = thisNum;
+                }
+            }
+        }
+        if (thisBookMax > max) {
+            max = thisBookMax;
+        }
+        map.put(index, thisBookMax);
+    }
 
+    static class Book {
+        int length;
+        int width;
+
+        public Book() {
+        }
+
+        public Book(int length, int weigth) {
+            this.length = length;
+            this.width = weigth;
+        }
+
+        public int getLength() {
+            return this.length;
+        }
+
+        public int getWidth() {
+            return this.width;
         }
     }
 }
