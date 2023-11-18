@@ -241,4 +241,17 @@ public class test2 {
         }
         System.out.print(result);
     }
+
+    @Test
+    public void test15() {
+        List<Character> charList = new ArrayList<>();
+        charList.add('b');
+        charList.add('d');
+        charList.add('f');
+        charList.add('k');
+
+        charList.sort(Comparator.comparing(Character::getNumericValue));
+
+        charList.forEach(t-> System.out.println(t));
+    }
 }
