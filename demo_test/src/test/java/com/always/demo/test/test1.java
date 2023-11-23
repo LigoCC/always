@@ -555,4 +555,14 @@ public class test1 {
         typeCount.put(555, typeCount.containsKey(555) ? typeCount.get(555) + 1 : 1);
         System.out.println(typeCount.get(555));
     }
+
+    @Test
+    public void test27() {
+        List<String> list = new ArrayList<>();
+        list.add("张三");
+        list.add("张4");
+        list.add("张5");
+
+        System.out.println(list.toString().replaceAll("[\\[|\\]]",""));
+    }
 }
