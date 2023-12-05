@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -253,5 +254,13 @@ public class test2 {
         charList.sort(Comparator.comparing(Character::getNumericValue));
 
         charList.forEach(t-> System.out.println(t));
+    }
+
+    @Test
+    public void test16() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+        Date date = new Date();
+        String format = sdf.format(date);
+        System.out.println(format);
     }
 }
