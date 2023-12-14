@@ -253,7 +253,7 @@ public class test2 {
 
         charList.sort(Comparator.comparing(Character::getNumericValue));
 
-        charList.forEach(t-> System.out.println(t));
+        charList.forEach(t -> System.out.println(t));
     }
 
     @Test
@@ -262,5 +262,19 @@ public class test2 {
         Date date = new Date();
         String format = sdf.format(date);
         System.out.println(format);
+    }
+
+    @Test
+    public void test17() {
+        // 1左移4位
+        String binaryString = Integer.toBinaryString(1 << 4);
+        System.out.println(binaryString);
+        Integer integer = Integer.valueOf(binaryString, 2);
+        System.out.println(integer);
+        // 10右移2位
+        String binaryString1 = Integer.toBinaryString(10);
+        System.out.println(binaryString1);
+        System.out.println(10 >> 2);
+        System.out.println(Integer.parseInt("10", 2));
     }
 }
