@@ -13,6 +13,7 @@
         <module>demo_websocket</module>
         <module>demo_test</module>
         <module>demo_rabbitmq</module>
+        <module>demo_dynamicProxy</module>
     </modules>
 
     <properties>
