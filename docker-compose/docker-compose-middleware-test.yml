@@ -20,7 +20,7 @@ services:
           memory: 3072M
     networks:
       - cloud
-    restart: on-failure
+    restart: always
   sentinel:
     image: miaol/sentinel-dashboard-nacos:latest
     container_name: sentinel
