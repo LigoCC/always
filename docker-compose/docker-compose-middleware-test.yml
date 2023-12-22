@@ -1,0 +1,64 @@
+version: '3'
+services:
+  nacos-server:
+    hostname: nacos-server
+    image: nacos/nacos-server:2.0.3
+    container_name: nacos-server
+    env_file:
+      - envtest/nacos-standlone-mysql.env
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - ./nacos/logs/:/home/nacos/logs
+      - ./nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9555:9555"
+    deploy:
+      resources:
+        limits:
+          memory: 3072M
+    networks:
+      - cloud
+    restart: on-failure
+  sentinel:
+    image: miaol/sentinel-dashboard-nacos:latest
+    container_name: sentinel
+    environment:
+      TZ: Asia/Shanghai
+      NACOS_ADDR: nacos-server:8848
+      NACOS_PASSWORD: ysyhl9T@
+      NACOS_NAMESPACE: test
+    ports:
+      - "8858:8858"
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    networks:
+      - cloud
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+    restart: always
+  redis:
+    image: redis:6.2.0
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - /redis/conf/redis.conf:/redis.conf:rw
+      - /redis/data:/data:rw
+    networks:
+      - cloud
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    restart: always
+networks:
+  cloud:
+    external: true
