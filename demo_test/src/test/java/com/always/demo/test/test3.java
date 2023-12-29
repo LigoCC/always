@@ -8,6 +8,7 @@ import java.text.Collator;
 import java.text.RuleBasedCollator;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -129,6 +130,14 @@ public class test3 {
         for (String word : sortedWords) {
             System.out.println(word);
         }
+    }
+
+    @Test
+    public void demo5() {
+        List<String> str = new ArrayList<>();
+        str.add("123");
+        // str.add("456");
+        System.out.println(str.toString().replaceAll(" ", "").replaceAll("\\[", "").replaceAll("]", ""));
     }
 
     void dfs(int x, int y, int step) {
